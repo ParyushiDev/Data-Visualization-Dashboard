@@ -11,7 +11,7 @@ import Bar from "./scenes/bar";
 import Line from "./scenes/line";
 import Pie from "./scenes/pie";
 import FAQ from "./scenes/faq";
-// import Geography from "./scenes/geography";
+import Geography from "./scenes/geography";
 import Calendar from "./scenes/calendar/calendar";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
@@ -41,7 +41,7 @@ function App() {
               <Route path="/line" element={<Line />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/calendar" element={<Calendar />} />
-              {/* <Route path="/geography" ment={<Geography />} /> */}
+              <Route path="/geography" ment={<Geography />} />
             </Routes>
           </main>
         </div>
