@@ -14,7 +14,7 @@ const BarChart = ({ isDashboard = false }) => {
       //   console.log(body);
       //   console.log(res);
 
-      setData(body); // aya kuch?
+      setData(body);
     }
     doFetch();
   }, []);

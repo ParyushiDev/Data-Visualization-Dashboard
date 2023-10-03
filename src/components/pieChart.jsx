@@ -1,9 +1,21 @@
 import { ResponsivePie } from "@nivo/pie";
 import { tokens } from "../theme";
 import { useTheme } from "@mui/material";
-import { mockPieData as data } from "../data/mockData";
+// import { mockPieData as data } from "../data/mockData";
+import { useEffect, useState } from "react";
 
 const PieChart = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    async function doFetch() {
+      const res = await fetch("http://localhost:9090/pie");
+      const body = await res.json();
+      setData(body);
+    }
+    doFetch();
+  }, []);
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (

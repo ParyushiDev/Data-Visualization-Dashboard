@@ -3,6 +3,7 @@ const database = require("./db");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const { cl } = require("@fullcalendar/core/internal-common");
 
 const app = express();
 const port = 9090;
@@ -33,7 +34,7 @@ mongoose
     }
   );
 
-// nhi hoga pura control Z
+//bar
 app.get("/bar", async (req, res) => {
   // console.log(req.params.topic);
   // console.log(req.params.sector);
@@ -51,14 +52,8 @@ app.get("/bar", async (req, res) => {
         count: { $gt: 20 },
       },
     },
-    // {
-    //   $unwind: "$documents",
-    // },
-    // {
-    //   $replaceRoot: { newRoot: "$documents" },
-    // },
   ]);
-  console.log(val);
+  // console.log(val);
 
   const regions = val.map((obj) => obj._id);
 
@@ -68,7 +63,7 @@ app.get("/bar", async (req, res) => {
     .json(
       await database.find(
         {
-          region: { $in: regions }, //acch in use krna h dekhti
+          region: { $in: regions },
         },
         {
           _id: 0,
@@ -81,6 +76,71 @@ app.get("/bar", async (req, res) => {
       )
     )
     .end();
+});
+
+//Pie
+app.get("/pie", async (req, res) => {
+  const val = await database.aggregate([
+    {
+      $group: {
+        _id: "$topic", // sum matlab ek topic ka count
+        value: { $sum: 1 }, //vo sum h ok ok
+      },
+    },
+    {
+      $match: {
+        value: { $gt: 20 }, //greater than 20
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        id: "$_id",
+        value: "$value",
+      },
+    },
+  ]);
+
+  // console.log(val);
+
+  res.json(val).end();
+});
+
+//line
+
+app.get("/line", async (req, res) => {
+  const val = await database.aggregate([
+    {
+      $group: {
+        _id: {
+          region: "$region",
+          pestle: "$pestle",
+        },
+        count: { $sum: 1 },
+      },
+    },
+    {
+      $group: {
+        _id: "$_id.region",
+        data: {
+          $push: {
+            x: "$_id.pestle",
+            y: "$count",
+          },
+        },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        id: "$_id",
+        data: 1,
+      },
+    },
+  ]);
+
+  console.log(val);
+  res.json(val).end();
 });
 
 app.listen(port, () => {
