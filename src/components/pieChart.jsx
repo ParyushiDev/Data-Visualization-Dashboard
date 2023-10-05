@@ -4,18 +4,28 @@ import { useTheme } from "@mui/material";
 // import { mockPieData as data } from "../data/mockData";
 import { useEffect, useState } from "react";
 
-const PieChart = () => {
+export default function PieChart({ isDashboard, filter }) {
+  console.log("Filter from Pie Chart ", filter);
+
   const [data, setData] = useState([]);
 
   useEffect(() => {
     async function doFetch() {
-      const res = await fetch("http://localhost:9090/pie");
+      const res = await fetch(`http://localhost:9090/pie/${filter}`);
+      const body = await res.json();
+      setData(body);
+    }
+    doFetch();
+  }, [filter]);
+
+  useEffect(() => {
+    async function doFetch() {
+      const res = await fetch(`http://localhost:9090/pie`);
       const body = await res.json();
       setData(body);
     }
     doFetch();
   }, []);
-
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -108,7 +118,7 @@ const PieChart = () => {
             {
               on: "hover",
               style: {
-                itemTextColor: "black",
+                itemTextColor: "#000",
               },
             },
           ],
@@ -116,6 +126,4 @@ const PieChart = () => {
       ]}
     />
   );
-};
-
-export default PieChart;
+}

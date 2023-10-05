@@ -60,7 +60,7 @@ router.get("/", async (req, res) => {
     },
   ]);
 
-  console.log(intensity);
+  // console.log(intensity);
 
   res
     .json([

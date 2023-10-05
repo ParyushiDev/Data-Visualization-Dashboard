@@ -1,6 +1,5 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -12,20 +11,18 @@ import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
 import BarChart from "../../components/BarChart";
 import PieChart from "../../components/pieChart";
-// import dropdown from "./dropdown";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   //dropdown
-  const [filter, setFilter] = React.useState("");
+  const [filter, setFilter] = React.useState(0);
   const [open, setOpen] = React.useState(false);
-  const navigate = useNavigate();
 
   const handleChange = (event) => {
+    console.log("Event target value", event.target.value);
     setFilter(event.target.value);
-    navigate("/pie");
   };
 
   const handleClose = () => {
@@ -43,20 +40,6 @@ const Dashboard = () => {
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
 
         <Box>
-          {/* <Button
-            sx={{
-              backgroundColor: colors.blueAccent[700],
-              color: colors.grey[100],
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 10px",
-              justifyContent: "right",
-            }}
-            onClick={handleOpen}
-          >
-            Filter
-          </Button> */}
-
           <FormControl sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="demo-controlled-open-select-label">
               Filter
@@ -74,26 +57,12 @@ const Dashboard = () => {
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              <MenuItem value={10}>Filter1</MenuItem>
-              <MenuItem value={20}>Filter2</MenuItem>
-              <MenuItem value={30}>Filter3</MenuItem>
+              <MenuItem value={2018}>Filter1</MenuItem>
+              <MenuItem value={2019}>Filter2</MenuItem>
+              <MenuItem value={2020}>Filter3</MenuItem>
             </Select>
           </FormControl>
         </Box>
-        {/* <Box>
-          <Button
-            sx={{
-              backgroundColor: colors.blueAccent[700],
-              color: colors.grey[100],
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-            }}
-          >
-            <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-            Download Reports
-          </Button>
-        </Box> */}
       </Box>
 
       {/* GRID & CHARTS */}
@@ -202,9 +171,10 @@ const Dashboard = () => {
             sx={{ marginBottom: "15px" }}
           >
             Pie Chart
-          </Typography>
+          </Typography>{" "}
           <Box height="200px">
-            <PieChart isDashboard={true} />
+            {" "}
+            <PieChart isDashboard={true} filter={filter} />
           </Box>
           {/* <Box
             backgroundColor={colors.greenAccent[500]}
