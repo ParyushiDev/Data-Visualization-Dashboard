@@ -11,7 +11,7 @@ export default function PieChart2({ isDashboard, filter }) {
 
   useEffect(() => {
     async function doFetch() {
-      const res = await fetch(`http://localhost:9090/pie/${filter}`);
+      const res = await fetch(`http://localhost:9090/pie2/${filter}`);
       const body = await res.json();
       setData(body);
     }

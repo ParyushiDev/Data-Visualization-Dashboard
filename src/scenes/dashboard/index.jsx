@@ -21,6 +21,8 @@ const Dashboard = () => {
   const [endYear, setEndYear] = React.useState(0);
   const [StartYear, setStartYear] = React.useState(0);
   const [SourceCount, setSourceCount] = React.useState(0);
+  //Source Count
+
   const [openYear, setOpenYear] = React.useState(false);
   const [openStartYear, setOpenStartYear] = React.useState(false);
   const [openSourceCount, setOpenSourceCount] = React.useState(false);
@@ -263,7 +265,7 @@ const Dashboard = () => {
                 }}
               >
                 <InputLabel id="demo-controlled-open-select-label">
-                  Source
+                  Source Count
                 </InputLabel>
                 <Select
                   labelId="demo-controlled-open-select-label"
@@ -278,14 +280,14 @@ const Dashboard = () => {
                   {/* <MenuItem value="">
                     <em>None</em>
                   </MenuItem> */}
-                  <MenuItem value={2}>greater than 2</MenuItem>
+                  <MenuItem value={10}>greater than 10</MenuItem>
                   <MenuItem value={20}>greater than 20</MenuItem>
                   <MenuItem value={30}>greater than 30</MenuItem>
                 </Select>
               </FormControl>
             </Box>
             {/* //pieChart */}
-            <PieChart2 isDashboard={true} />
+            <PieChart2 isDashboard={true} filter={SourceCount} />
           </Box>
         </Box>
         <Box
@@ -330,6 +332,11 @@ const Dashboard = () => {
                   <MenuItem value={2020}>2020</MenuItem>
                   <MenuItem value={2018}>2018</MenuItem>
                   <MenuItem value={2016}>2016</MenuItem>
+                  {/* <MenuItem value={"Healthcare"}>healthcare</MenuItem>
+                  <MenuItem value={"Economic"}>economic</MenuItem>
+                  <MenuItem value={"Industrial"}>Industrial</MenuItem>
+                  <MenuItem value={"Lifestyle"}>Lifestyle</MenuItem>
+                  <MenuItem value={"Political"}>Political</MenuItem> */}
                 </Select>
               </FormControl>
             </Box>

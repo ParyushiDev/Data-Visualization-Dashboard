@@ -3,7 +3,7 @@ const database = require("../db");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const rel = await database.aggregate([
+  const relevance = await database.aggregate([
     {
       $group: {
         _id: "$pestle",
@@ -66,7 +66,7 @@ router.get("/", async (req, res) => {
     .json([
       {
         id: "relevance",
-        data: rel,
+        data: relevance,
       },
       {
         id: "intensity",

@@ -57,15 +57,15 @@ router.get("/:count", async (req, res) => {
   } else {
     val = await database.aggregate([
       {
-        $match: {
-          //   end_year: { $eq: Number(req.params.count) }, // yaha year ke jaga pestle: { $eq: req.params.pestle} karna
-          value: { $gt: Number(req.params.count) },
-        },
-      },
-      {
         $group: {
           _id: "$source",
           value: { $sum: 1 },
+        },
+      },
+      {
+        $match: {
+          //   end_year: { $eq: Number(req.params.count) }, // yaha year ke jaga pestle: { $eq: req.params.pestle} karna
+          value: { $gt: Number(req.params.count) },
         },
       },
       {
