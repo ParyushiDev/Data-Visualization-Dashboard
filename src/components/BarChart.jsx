@@ -4,8 +4,10 @@ import { useState, useEffect } from "react";
 import { tokens } from "../theme";
 // import { mockBarData as data } from "../data/mockData";
 
-const BarChart = ({ isDashboard = false }) => {
+const BarChart = ({ isDashboard = false, filter }) => {
   const [data, setData] = useState([]);
+
+  console.log("first", filter);
 
   useEffect(() => {
     async function doFetch() {
@@ -18,6 +20,19 @@ const BarChart = ({ isDashboard = false }) => {
     }
     doFetch();
   }, []);
+
+  //filter
+  useEffect(() => {
+    async function doFetch() {
+      const res = await fetch(`http://localhost:9090/bar/${filter}`);
+      const body = await res.json();
+      console.log(body);
+      //   console.log(res);
+
+      setData(body);
+    }
+    doFetch();
+  }, [filter]);
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -99,7 +114,7 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "end_year", // changed
+        legend: isDashboard ? undefined : "count", // changed
         legendPosition: "middle",
         legendOffset: -40,
       }}

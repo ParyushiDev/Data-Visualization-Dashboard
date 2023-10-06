@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import * as React from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -6,31 +6,63 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
+// import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
 import BarChart from "../../components/BarChart";
 import PieChart from "../../components/pieChart";
+import PieChart2 from "../../components/PieChart2";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   //dropdown
-  const [filter, setFilter] = React.useState(0);
-  const [open, setOpen] = React.useState(false);
+  const [endYear, setEndYear] = React.useState(0);
+  const [StartYear, setStartYear] = React.useState(0);
+  const [SourceCount, setSourceCount] = React.useState(0);
+  const [openYear, setOpenYear] = React.useState(false);
+  const [openStartYear, setOpenStartYear] = React.useState(false);
+  const [openSourceCount, setOpenSourceCount] = React.useState(false);
 
-  const handleChange = (event) => {
+  //year
+  const handleEndYearChange = (event) => {
+    // console.log("Event target value", event.target.value);
+    setEndYear(event.target.value);
+  };
+  //StartYear
+  const handleStartYearChange = (event) => {
+    // console.log("Event target value", event.target.value);
+    setStartYear(event.target.value);
+  };
+  //Source Count
+  const handleSourceCountChange = (event) => {
     console.log("Event target value", event.target.value);
-    setFilter(event.target.value);
+    setSourceCount(event.target.value);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  //year
+  const handleCloseYear = () => {
+    setOpenYear(false);
+  };
+  const handleOpenYear = () => {
+    setOpenYear(true);
   };
 
-  const handleOpen = () => {
-    setOpen(true);
+  //StartYear
+  const handleCloseStartYear = () => {
+    setOpenStartYear(false);
+  };
+  const handleOpenStartYear = () => {
+    setOpenStartYear(true);
+  };
+
+  //Source Count
+  const handleCloseSourceCount = () => {
+    setOpenSourceCount(false);
+  };
+  const handleOpenSourceCount = () => {
+    setOpenSourceCount(true);
   };
 
   return (
@@ -38,38 +70,13 @@ const Dashboard = () => {
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
-
-        <Box>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="demo-controlled-open-select-label">
-              Filter
-            </InputLabel>
-            <Select
-              labelId="demo-controlled-open-select-label"
-              id="demo-controlled-open-select"
-              open={open}
-              onClose={handleClose}
-              onOpen={handleOpen}
-              value={filter}
-              label="filter"
-              onChange={handleChange}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={2018}>Filter1</MenuItem>
-              <MenuItem value={2019}>Filter2</MenuItem>
-              <MenuItem value={2020}>Filter3</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
       </Box>
 
       {/* GRID & CHARTS */}
       <Box
         display="grid"
         gridTemplateColumns="repeat(12, 1fr)"
-        gridAutoRows="160px"
+        gridAutoRows="190px"
         gap="20px"
       >
         {/* ROW 2 */}
@@ -91,15 +98,38 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.grey[100]}
               >
-                Line Chart
+                Pestle Chart
               </Typography>
             </Box>
-            <Box>
-              <IconButton>
-                <DownloadOutlinedIcon
-                  sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
-                />
-              </IconButton>
+
+            <Box display="flex" justifyContent="flex-end" alignItems="flex-end">
+              <FormControl
+                sx={{
+                  m: 1,
+                  minWidth: 120,
+                }}
+              >
+                <InputLabel id="demo-controlled-open-select-label">
+                  End Year
+                </InputLabel>
+                <Select
+                  labelId="demo-controlled-open-select-label"
+                  id="demo-controlled-open-select"
+                  open={openYear}
+                  onClose={handleCloseYear}
+                  onOpen={handleOpenYear}
+                  value={endYear}
+                  label="endYear"
+                  onChange={handleEndYearChange}
+                >
+                  {/* <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem> */}
+                  <MenuItem value={2018}>2018</MenuItem>
+                  <MenuItem value={2019}>2019</MenuItem>
+                  <MenuItem value={2020}>2020</MenuItem>
+                </Select>
+              </FormControl>
             </Box>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
@@ -160,7 +190,7 @@ const Dashboard = () => {
         {/* ROW 3 */}
 
         <Box
-          gridColumn="span 5"
+          gridColumn="span 6"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           padding="30px"
@@ -170,25 +200,96 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ marginBottom: "15px" }}
           >
-            Pie Chart
+            Topic Chart
           </Typography>{" "}
           <Box height="200px">
             {" "}
-            <PieChart isDashboard={true} filter={filter} />
+            {/* //dropdown */}
+            <Box display="flex" justifyContent="flex-end" alignItems="flex-end">
+              <FormControl
+                sx={{
+                  m: 1,
+                  minWidth: 120,
+                }}
+              >
+                <InputLabel id="demo-controlled-open-select-label">
+                  End Year
+                </InputLabel>
+                <Select
+                  labelId="demo-controlled-open-select-label"
+                  id="demo-controlled-open-select"
+                  open={openYear}
+                  onClose={handleCloseYear}
+                  onOpen={handleOpenYear}
+                  value={endYear}
+                  label="endYear"
+                  onChange={handleEndYearChange}
+                >
+                  {/* <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem> */}
+                  <MenuItem value={2018}>2018</MenuItem>
+                  <MenuItem value={2019}>2019</MenuItem>
+                  <MenuItem value={2020}>2020</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            {/* //pieChart */}
+            <PieChart isDashboard={true} filter={endYear} />
           </Box>
-          {/* <Box
-            backgroundColor={colors.greenAccent[500]}
-            p="5px 10px"
-            borderRadius="4px"
-            display="flex"
-            width="fit-content"
-            fontSize="18px"
+        </Box>
+        {/* Pie2 */}
+        <Box
+          gridColumn="span 6"
+          gridRow="span 2"
+          backgroundColor={colors.primary[400]}
+          padding="30px"
+        >
+          <Typography
+            variant="h5"
+            fontWeight="600"
+            sx={{ marginBottom: "15px" }}
           >
-            filter
-          </Box> */}
+            Source Chart
+          </Typography>{" "}
+          <Box height="200px">
+            {" "}
+            {/* //dropdown */}
+            <Box display="flex" justifyContent="flex-end" alignItems="flex-end">
+              <FormControl
+                sx={{
+                  m: 1,
+                  minWidth: 120,
+                }}
+              >
+                <InputLabel id="demo-controlled-open-select-label">
+                  Source
+                </InputLabel>
+                <Select
+                  labelId="demo-controlled-open-select-label"
+                  id="demo-controlled-open-select"
+                  open={openSourceCount}
+                  onOpen={handleOpenSourceCount}
+                  onClose={handleCloseSourceCount}
+                  value={SourceCount}
+                  label="SourceCount"
+                  onChange={handleSourceCountChange}
+                >
+                  {/* <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem> */}
+                  <MenuItem value={2}>greater than 2</MenuItem>
+                  <MenuItem value={20}>greater than 20</MenuItem>
+                  <MenuItem value={30}>greater than 30</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            {/* //pieChart */}
+            <PieChart2 isDashboard={true} />
+          </Box>
         </Box>
         <Box
-          gridColumn="span 7"
+          gridColumn="span 12"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
         >
@@ -197,10 +298,43 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ padding: "30px 30px 0 30px" }}
           >
-            Sales Quantity
+            Region Chart
           </Typography>
           <Box height="300px" mt="-20px">
-            <BarChart isDashboard={true} />
+            {/* //dropdown */}
+            <Box display="flex" justifyContent="flex-end" alignItems="flex-end">
+              <FormControl
+                sx={{
+                  m: 1,
+                  minWidth: 120,
+                }}
+              >
+                <InputLabel id="demo-controlled-open-select-label">
+                  Start Year
+                </InputLabel>
+                <Select
+                  labelId="demo-controlled-open-select-label"
+                  id="demo-controlled-open-select"
+                  open={openStartYear}
+                  onClose={handleCloseStartYear}
+                  onOpen={handleOpenStartYear}
+                  value={StartYear}
+                  label="StartYear"
+                  onChange={handleStartYearChange}
+                >
+                  {/* <MenuItem value="Filter">
+                    <em>None</em>
+                  </MenuItem> */}
+                  <MenuItem value={2028}>2028</MenuItem>
+                  <MenuItem value={2022}>2022</MenuItem>
+                  <MenuItem value={2020}>2020</MenuItem>
+                  <MenuItem value={2018}>2018</MenuItem>
+                  <MenuItem value={2016}>2016</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            {/* //barchart */}
+            <BarChart isDashboard={false} filter={StartYear} />
           </Box>
         </Box>
       </Box>

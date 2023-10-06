@@ -9,9 +9,9 @@ import Contacts from "./scenes/contacts";
 import Form from "./scenes/form";
 import Bar from "./scenes/bar";
 import Line from "./scenes/line";
-import Pie from "./scenes/pie";
+import Pie from "./scenes/pie/index";
+import Pie2 from "./scenes/pie/index2";
 import FAQ from "./scenes/faq";
-import Geography from "./scenes/geography";
 import Calendar from "./scenes/calendar/calendar";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
@@ -41,7 +41,7 @@ function App() {
               <Route path="/line" element={<Line />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/calendar" element={<Calendar />} />
-              <Route path="/geography" ment={<Geography />} />
+              <Route path="/pie2" element={<Pie2 />} />
             </Routes>
           </main>
         </div>

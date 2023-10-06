@@ -11,6 +11,7 @@ const url = "mongodb://localhost:27017";
 const bar = require("./routes/bar");
 const pie = require("./routes/pie");
 const line = require("./routes/line");
+const pie2 = require("./routes/pie2");
 
 app.use(cors());
 
@@ -40,6 +41,7 @@ mongoose
 app.use("/bar", bar);
 app.use("/pie", pie);
 app.use("/line", line);
+app.use("/pie2", pie2);
 
 app.listen(port, () => {
   console.log(`Server listening on port: ${port}`);

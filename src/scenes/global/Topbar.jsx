@@ -9,15 +9,15 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 
-const Topbar = ()=>{
-    const theme  = useTheme();
-    const colors = tokens(theme.palette.mode); //this allows us to use the theme from the material ui and passed in the tocken created in the themes
-      const colorMode = useContext(ColorModeContext);
+const Topbar = () => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode); //this allows us to use the theme from the material ui and passed in the tocken created in the themes
+  const colorMode = useContext(ColorModeContext);
 
-    return (
-        // Box is similer to div but it allows us to write the css within the component
-    <Box display="flex" justifyContent="space-between" p={2}> 
-         {/* SEARCH BAR */}
+  return (
+    // Box is similer to div but it allows us to write the css within the component
+    <Box display="flex" justifyContent="space-between" p={2}>
+      {/* SEARCH BAR */}
       <Box
         display="flex"
         backgroundColor={colors.primary[400]}
@@ -28,7 +28,7 @@ const Topbar = ()=>{
           <SearchIcon />
         </IconButton>
       </Box>
-        {/* ICONS */}
+      {/* ICONS */}
       <Box display="flex">
         <IconButton onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
@@ -48,7 +48,7 @@ const Topbar = ()=>{
         </IconButton>
       </Box>
     </Box>
-    )
-}
+  );
+};
 
 export default Topbar;

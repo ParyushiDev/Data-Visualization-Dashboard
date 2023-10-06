@@ -4,8 +4,8 @@ import { useTheme } from "@mui/material";
 // import { mockPieData as data } from "../data/mockData";
 import { useEffect, useState } from "react";
 
-export default function PieChart({ isDashboard, filter }) {
-  // console.log("Filter from Pie Chart ", filter);
+export default function PieChart2({ isDashboard, filter }) {
+  console.log("Filter from Pie Chart2 ", filter);
 
   const [data, setData] = useState([]);
 
@@ -20,7 +20,7 @@ export default function PieChart({ isDashboard, filter }) {
 
   useEffect(() => {
     async function doFetch() {
-      const res = await fetch(`http://localhost:9090/pie`);
+      const res = await fetch(`http://localhost:9090/pie2`);
       const body = await res.json();
       setData(body);
     }
