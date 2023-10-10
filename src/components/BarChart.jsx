@@ -2,24 +2,11 @@ import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { useState, useEffect } from "react";
 import { tokens } from "../theme";
-// import { mockBarData as data } from "../data/mockData";
 
 const BarChart = ({ isDashboard = false, filter }) => {
   const [data, setData] = useState([]);
 
-  console.log("first", filter);
-
-  useEffect(() => {
-    async function doFetch() {
-      const res = await fetch("http://localhost:9090/bar");
-      const body = await res.json();
-      //   console.log(body);
-      //   console.log(res);
-
-      setData(body);
-    }
-    doFetch();
-  }, []);
+  // console.log("first", filter);
 
   //filter
   useEffect(() => {
@@ -69,7 +56,13 @@ const BarChart = ({ isDashboard = false, filter }) => {
           },
         },
       }}
-      keys={["intensity", "relevance", "likelihood"]}
+      keys={[
+        "Aerospace & defence",
+        "Manufacturing",
+        "Water",
+        "Support Services",
+        "Environment",
+      ]}
       indexBy="region"
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
       padding={0.3}

@@ -2,8 +2,19 @@ const Router = require("express");
 const database = require("../db");
 const router = Router();
 
-router.get("/", async (req, res) => {
+router.get("/:country", async (req, res) => {
+  if (req.params.country == "none") {
+    req.params.country = "[sS]*";
+  }
+  const country = req.params.country;
+
+  console.log(country);
   const relevance = await database.aggregate([
+    {
+      $match: {
+        country: { $regex: country },
+      },
+    },
     {
       $group: {
         _id: "$pestle",
@@ -24,6 +35,11 @@ router.get("/", async (req, res) => {
 
   const intensity = await database.aggregate([
     {
+      $match: {
+        country: { $regex: country },
+      },
+    },
+    {
       $group: {
         _id: "$pestle",
         averageIntensity: { $avg: "$intensity" },
@@ -42,6 +58,11 @@ router.get("/", async (req, res) => {
   ]);
 
   const likelihood = await database.aggregate([
+    {
+      $match: {
+        country: { $regex: country },
+      },
+    },
     {
       $group: {
         _id: "$pestle",

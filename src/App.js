@@ -21,11 +21,8 @@ function App() {
 
   return (
     <ColorModeContext.Provider value={colorMode}>
-      {/* {"  //setting up color context "} */}
       <ThemeProvider theme={theme}>
-        {/* {" //so that material ui has access to the colors "} */}
         <CssBaseline />
-        {/* {"//sets the css to defaults"} */}
         <div className="app">
           <Sidebar isSidebar={isSidebar} />
           <main className="content">

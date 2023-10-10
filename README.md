@@ -1,4 +1,3 @@
-Dependencies
-npm i @mui/material @emotion/react @emotion/styled @mui/x-data-grid @mui/icons-material react-router-dom@6 react-pro-sidebar formik yup @fullcalendar/core @fullcalendar/daygrid @fullcalendar/timegrid @fullcalendar/list @nivo/core @nivo/pie @nivo/line @nivo/bar @nivo/geo
-
-<!-- Material ui : Provides with the icons and materials required -->
+npm install --> downloads node modules
+npm run start--> starts the localhost at 3000
+nodemon index.js(src/server) --> starts the server and connects to mongoDB Compass

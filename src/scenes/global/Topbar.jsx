@@ -11,11 +11,10 @@ import SearchIcon from "@mui/icons-material/Search";
 
 const Topbar = () => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode); //this allows us to use the theme from the material ui and passed in the tocken created in the themes
+  const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
 
   return (
-    // Box is similer to div but it allows us to write the css within the component
     <Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
       <Box

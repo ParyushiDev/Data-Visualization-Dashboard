@@ -6,7 +6,6 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
-// import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
 import BarChart from "../../components/BarChart";
@@ -21,11 +20,14 @@ const Dashboard = () => {
   const [endYear, setEndYear] = React.useState(0);
   const [StartYear, setStartYear] = React.useState(0);
   const [SourceCount, setSourceCount] = React.useState(0);
-  //Source Count
+  const [Country, setCountry] = React.useState("none");
+
+  //dropdown open
 
   const [openYear, setOpenYear] = React.useState(false);
   const [openStartYear, setOpenStartYear] = React.useState(false);
   const [openSourceCount, setOpenSourceCount] = React.useState(false);
+  const [openCountry, setOpenCountry] = React.useState(false);
 
   //year
   const handleEndYearChange = (event) => {
@@ -41,6 +43,11 @@ const Dashboard = () => {
   const handleSourceCountChange = (event) => {
     console.log("Event target value", event.target.value);
     setSourceCount(event.target.value);
+  };
+  //Country
+  const handleCountryChange = (event) => {
+    console.log("Event target value", event.target.value);
+    setCountry(event.target.value);
   };
 
   //year
@@ -65,6 +72,14 @@ const Dashboard = () => {
   };
   const handleOpenSourceCount = () => {
     setOpenSourceCount(true);
+  };
+
+  //Country
+  const handleCloseCountry = () => {
+    setOpenCountry(false);
+  };
+  const handleOpenCountry = () => {
+    setOpenCountry(true);
   };
 
   return (
@@ -103,39 +118,36 @@ const Dashboard = () => {
                 Pestle Chart
               </Typography>
             </Box>
-
-            <Box display="flex" justifyContent="flex-end" alignItems="flex-end">
-              <FormControl
-                sx={{
-                  m: 1,
-                  minWidth: 120,
-                }}
+          </Box>
+          {/* //dropdown */}
+          <Box display="flex" justifyContent="flex-end" alignItems="flex-end">
+            <FormControl
+              sx={{
+                m: 1,
+                minWidth: 120,
+              }}
+            >
+              <InputLabel id="demo-controlled-open-select-label">
+                Country
+              </InputLabel>
+              <Select
+                labelId="demo-controlled-open-select-label"
+                id="demo-controlled-open-select"
+                open={openCountry}
+                onOpen={handleOpenCountry}
+                onClose={handleCloseCountry}
+                value={Country}
+                label="Country"
+                onChange={handleCountryChange}
               >
-                <InputLabel id="demo-controlled-open-select-label">
-                  End Year
-                </InputLabel>
-                <Select
-                  labelId="demo-controlled-open-select-label"
-                  id="demo-controlled-open-select"
-                  open={openYear}
-                  onClose={handleCloseYear}
-                  onOpen={handleOpenYear}
-                  value={endYear}
-                  label="endYear"
-                  onChange={handleEndYearChange}
-                >
-                  {/* <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem> */}
-                  <MenuItem value={2018}>2018</MenuItem>
-                  <MenuItem value={2019}>2019</MenuItem>
-                  <MenuItem value={2020}>2020</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
+                <MenuItem value={"United States of America"}>USA</MenuItem>
+                <MenuItem value={"India"}>India</MenuItem>
+                <MenuItem value={"Japan"}>Japan</MenuItem>
+              </Select>
+            </FormControl>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
+            <LineChart isDashboard={true} country={Country} />
           </Box>
         </Box>
         <Box
@@ -227,9 +239,6 @@ const Dashboard = () => {
                   label="endYear"
                   onChange={handleEndYearChange}
                 >
-                  {/* <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem> */}
                   <MenuItem value={2018}>2018</MenuItem>
                   <MenuItem value={2019}>2019</MenuItem>
                   <MenuItem value={2020}>2020</MenuItem>
@@ -277,9 +286,6 @@ const Dashboard = () => {
                   label="SourceCount"
                   onChange={handleSourceCountChange}
                 >
-                  {/* <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem> */}
                   <MenuItem value={10}>greater than 10</MenuItem>
                   <MenuItem value={20}>greater than 20</MenuItem>
                   <MenuItem value={30}>greater than 30</MenuItem>
@@ -324,19 +330,9 @@ const Dashboard = () => {
                   label="StartYear"
                   onChange={handleStartYearChange}
                 >
-                  {/* <MenuItem value="Filter">
-                    <em>None</em>
-                  </MenuItem> */}
-                  <MenuItem value={2028}>2028</MenuItem>
-                  <MenuItem value={2022}>2022</MenuItem>
-                  <MenuItem value={2020}>2020</MenuItem>
-                  <MenuItem value={2018}>2018</MenuItem>
                   <MenuItem value={2016}>2016</MenuItem>
-                  {/* <MenuItem value={"Healthcare"}>healthcare</MenuItem>
-                  <MenuItem value={"Economic"}>economic</MenuItem>
-                  <MenuItem value={"Industrial"}>Industrial</MenuItem>
-                  <MenuItem value={"Lifestyle"}>Lifestyle</MenuItem>
-                  <MenuItem value={"Political"}>Political</MenuItem> */}
+                  <MenuItem value={2019}>2019</MenuItem>
+                  <MenuItem value={2020}>2020</MenuItem>
                 </Select>
               </FormControl>
             </Box>

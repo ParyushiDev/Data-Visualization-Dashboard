@@ -2,19 +2,23 @@ import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import { useEffect, useState } from "react";
-// import { mockLineData as data } from "../data/mockData";
 
-const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
+const LineChart = ({
+  isCustomLineColors = false,
+  isDashboard = false,
+  country,
+}) => {
   const [data, setData] = useState([]);
+  console.log(country);
 
   useEffect(() => {
     async function doFetch() {
-      const res = await fetch("http://localhost:9090/line");
+      const res = await fetch(`http://localhost:9090/line/${country}`);
       const body = await res.json();
       setData(body);
     }
     doFetch();
-  }, []);
+  }, [country]);
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
